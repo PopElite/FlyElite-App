@@ -1,0 +1,233 @@
+<html><head><base href="http://localhost/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite - Navigation du Site</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            min-height: 100vh;
+        }
+
+        #app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: #6e8efb;
+            padding: 20px;
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-logo {
+            font-size: 2em;
+            font-weight: bold;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+            50% { text-shadow: 0 0 20px rgba(255,255,255,0.8); }
+            100% { text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: white;
+            color: #6e8efb;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .sitemap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .flow-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .flow-section h2 {
+            color: #6e8efb;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .flow-list {
+            list-style: none;
+        }
+
+        .flow-list li {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9ff;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .flow-list i {
+            color: #6e8efb;
+        }
+
+        .flow-arrow {
+            color: #6e8efb;
+            font-size: 1.2em;
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app-container">
+        <header>
+            <nav>
+                <div class="nav-logo">ELITE</div>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-button">Accueil</a>
+                    <a href="login.html" class="nav-button">Connexion</a>
+                    <a href="courses.html" class="nav-button">Nos Cours</a>
+                </div>
+            </nav>
+        </header>
+
+        <div class="sitemap">
+            <div class="flow-section">
+                <h2>Parcours Visiteur</h2>
+                <ul class="flow-list">
+                    <li><i class="fas fa-home"></i> Page d'accueil</li>
+                    <div class="flow-arrow">↓</div>
+                    <li><i class="fas fa-list"></i> Landing Page Cours</li>
+                    <div class="flow-arrow">↓</div>
+                    <li><i class="fas fa-credit-card"></i> Page de Paiement</li>
+                    <div class="flow-arrow">↓</div>
+                    <li><i class="fas fa-check-circle"></i> Page de Remerciement</li>
+                </ul>
+            </div>
+
+            <div class="flow-section">
+                <h2>Espace Membre</h2>
+                <ul class="flow-list">
+                    <li><i class="fas fa-sign-in-alt"></i> Page de Connexion</li>
+                    <div class="flow-arrow">↓</div>
+                    <li><i class="fas fa-user-check"></i> Vérification du Profil</li>
+                    <div class="flow-arrow">↓</div>
+                    <li><i class="fas fa-columns"></i> Dashboard Personnalisé</li>
+                </ul>
+            </div>
+
+            <div class="flow-section">
+                <h2>Espace Cours</h2>
+                <ul class="flow-list">
+                    <li><i class="fas fa-chalkboard-teacher"></i> Interface de Cours</li>
+                    <div class="flow-arrow">↓</div>
+                    <li><i class="fas fa-video"></i> Visioconférence</li>
+                    <div class="flow-arrow">↓</div>
+                    <li><i class="fas fa-comments"></i> Chat en Direct</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fonction pour gérer la navigation
+        document.addEventListener('DOMContentLoaded', () => {
+            const navButtons = document.querySelectorAll('.nav-button');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    // Animation de clic
+                    button.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        button.style.transform = 'scale(1)';
+                    }, 100);
+                });
+            });
+        });
+
+        // Vérification de la session
+        function checkSession() {
+            const userSession = localStorage.getItem('userSession');
+            if (userSession) {
+                const userData = JSON.parse(userSession);
+                if (userData.role === 'coach') {
+                    window.location.href = 'dashboard-coach.html';
+                } else if (userData.role === 'student') {
+                    window.location.href = 'dashboard-student.html';
+                }
+            }
+        }
+
+        // Gestion des redirections
+        function handleNavigation(path) {
+            if (path.includes('dashboard') || path.includes('courses')) {
+                const userSession = localStorage.getItem('userSession');
+                if (!userSession) {
+                    window.location.href = 'login.html';
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

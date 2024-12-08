@@ -1,0 +1,186 @@
+<html><head><base href="http://localhost/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite - Merci de votre confiance</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thank-you-container {
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(110, 142, 251, 0.1);
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .success-icon {
+            width: 120px;
+            height: 120px;
+            background: #6e8efb;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .success-icon i {
+            color: white;
+            font-size: 60px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+
+        .message {
+            color: #666;
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .details {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .details h3 {
+            color: #6e8efb;
+            margin-bottom: 15px;
+        }
+
+        .button {
+            background: #6e8efb;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            background: #5a7af9;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #6e8efb;
+            animation: confetti 3s ease-in-out infinite;
+        }
+
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(1000px) rotate(720deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you-container">
+        <div class="success-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <h1>Merci pour votre confiance!</h1>
+        <p class="message">
+            Votre paiement a été effectué avec succès et votre abonnement est maintenant actif.
+        </p>
+        <div class="details">
+            <h3>Détails de votre abonnement</h3>
+            <p><strong>Pack:</strong> Premium 2 cours par mois</p>
+            <p><strong>Montant:</strong> 267.60€ TTC</p>
+            <p><strong>Date de début:</strong> <span id="startDate"></span></p>
+            <p><strong>Statut:</strong> <span style="color: #4CAF50">Actif</span></p>
+        </div>
+        <p class="message">
+            Un email de confirmation a été envoyé à votre adresse email.<br>
+            Vous pouvez dès maintenant accéder à votre espace et commencer vos cours!
+        </p>
+        <div>
+            <a href="dashboard.html" class="button">
+                <i class="fas fa-columns"></i> Accéder à mon espace
+            </a>
+            <a href="courses.html" class="button">
+                <i class="fas fa-play-circle"></i> Voir mes cours
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Afficher la date de début
+        const today = new Date();
+        document.getElementById('startDate').textContent = today.toLocaleDateString('fr-FR');
+
+        // Animation de confettis
+        function createConfetti() {
+            for(let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * window.innerWidth + 'px';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.opacity = Math.random();
+                document.body.appendChild(confetti);
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 5000);
+            }
+        }
+
+        // Lancer les confettis au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            createConfetti();
+            setInterval(createConfetti, 5000);
+        });
+    </script>
+</body>
+</html>

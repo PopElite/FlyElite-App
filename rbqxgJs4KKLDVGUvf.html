@@ -1,0 +1,293 @@
+<html><head><base href="http://localhost/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite - Nos Cours</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+            50% { text-shadow: 0 0 20px rgba(255,255,255,0.8); }
+            100% { text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+        }
+
+        .hero {
+            padding: 60px 20px;
+            text-align: center;
+            background: white;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid #6e8efb;
+            position: relative;
+        }
+
+        .featured-tag {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: #6e8efb;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .price {
+            font-size: 48px;
+            color: #6e8efb;
+            margin: 20px 0;
+        }
+
+        .price span {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .features {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .features li {
+            padding: 10px 0;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .benefits {
+            padding: 60px 20px;
+            background: #f8f9fa;
+        }
+
+        .benefits-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .benefit-icon {
+            font-size: 40px;
+            color: #6e8efb;
+            margin-bottom: 20px;
+        }
+
+        .testimonials {
+            padding: 60px 20px;
+            background: white;
+        }
+
+        .testimonial-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .testimonial-quote {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #6e8efb;
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">ELITE</div>
+        <h1>Transformez votre vie avec nos cours personnalisés</h1>
+    </div>
+
+    <div class="hero">
+        <h1>Découvrez nos programmes d'entraînement</h1>
+        <p>Des cours personnalisés avec des coachs professionnels pour atteindre vos objectifs fitness</p>
+    </div>
+
+    <div class="pricing-container">
+        <div class="pricing-card">
+            <h2>Essentiel</h2>
+            <div class="price">223€<span>/mois</span></div>
+            <ul class="features">
+                <li>2 cours par mois</li>
+                <li>Suivi personnalisé</li>
+                <li>Accès à la plateforme</li>
+                <li>Support par email</li>
+            </ul>
+            <a href="https://example.com/signup" class="cta-button">Commencer</a>
+        </div>
+
+        <div class="pricing-card featured">
+            <div class="featured-tag">Plus populaire</div>
+            <h2>Premium</h2>
+            <div class="price">449€<span>/mois</span></div>
+            <ul class="features">
+                <li>5 cours par mois</li>
+                <li>Suivi personnalisé avancé</li>
+                <li>Accès illimité à la plateforme</li>
+                <li>Support prioritaire 24/7</li>
+                <li>Programme nutrition inclus</li>
+            </ul>
+            <a href="https://example.com/signup-premium" class="cta-button">Commencer</a>
+        </div>
+
+        <div class="pricing-card">
+            <h2>Elite</h2>
+            <div class="price">899€<span>/mois</span></div>
+            <ul class="features">
+                <li>Cours illimités</li>
+                <li>Suivi personnalisé VIP</li>
+                <li>Accès prioritaire aux nouveautés</li>
+                <li>Support VIP 24/7</li>
+                <li>Programme nutrition personnalisé</li>
+                <li>Séances privées</li>
+            </ul>
+            <a href="https://example.com/signup-elite" class="cta-button">Commencer</a>
+        </div>
+    </div>
+
+    <div class="benefits">
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <i class="fas fa-user-friends benefit-icon"></i>
+                <h3>Coachs certifiés</h3>
+                <p>Des experts qualifiés pour vous accompagner</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-calendar-check benefit-icon"></i>
+                <h3>Flexibilité totale</h3>
+                <p>Planifiez vos cours selon vos disponibilités</p>
+            </div>
+            <div class="benefit-card">
+                <i class="fas fa-chart-line benefit-icon"></i>
+                <h3>Suivi des progrès</h3>
+                <p>Visualisez votre évolution en temps réel</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="testimonials">
+        <h2 style="text-align: center; margin-bottom: 40px;">Ce que disent nos clients</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-quote">"Les cours sont excellents et les coachs sont très professionnels. J'ai vu des résultats en quelques semaines!"</p>
+                <p class="testimonial-author">Sophie D.</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-quote">"La flexibilité des horaires et la qualité du suivi sont exceptionnelles. Je recommande!"</p>
+                <p class="testimonial-author">Thomas M.</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-quote">"Le meilleur investissement pour ma santé. Les coachs sont à l'écoute et très motivants."</p>
+                <p class="testimonial-author">Julie L.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2024 Elite. Tous droits réservés.</p>
+    </div>
+</body>
+</html>

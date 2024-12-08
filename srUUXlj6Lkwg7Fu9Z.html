@@ -1,0 +1,380 @@
+<html><head><base href="http://localhost/"></head><body>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite - Profil Utilisateur</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: #6e8efb;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #6e8efb11, #a777e311);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #6e8efb33;
+        }
+
+        .stat-title {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #6e8efb;
+        }
+
+        .progress-container {
+            margin-bottom: 15px;
+        }
+
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-active {
+            background-color: #4CAF50;
+        }
+
+        .status-inactive {
+            background-color: #ff5252;
+        }
+
+        .course-list {
+            list-style: none;
+        }
+
+        .course-item {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .course-item:last-child {
+            border-bottom: none;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge-progress {
+            background-color: #fff4de;
+            color: #ffa000;
+        }
+
+        .badge-completed {
+            background-color: #e8f5e9;
+            color: #4CAF50;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #welcomeMessage {
+            font-size: 24px;
+            color: #6e8efb;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #6e8efb;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .user-info {
+            background: linear-gradient(135deg, #6e8efb22, #a777e322);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .user-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #6e8efb;
+        }
+
+        .user-email {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="welcomeMessage"></div>
+    <div id="loadingSpinner" class="loading-spinner"></div>
+    
+    <div class="profile-container">
+        <!-- Coach Section -->
+        <div id="coachSection" class="section hidden">
+            <div class="user-info">
+                <div class="user-name" id="coachName"></div>
+                <div class="user-email" id="coachEmail"></div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-title">Élèves actifs</div>
+                    <div class="stat-value">24</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Cours créés</div>
+                    <div class="stat-value">12</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Heures enseignées</div>
+                    <div class="stat-value">156</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Note moyenne</div>
+                    <div class="stat-value">4.8/5</div>
+                </div>
+            </div>
+
+            <h3 style="margin: 20px 0 10px 0;">Statut actuel</h3>
+            <p>
+                <span class="status-indicator status-active"></span>
+                Disponible pour coaching
+            </p>
+
+            <h3 style="margin: 20px 0 10px 0;">Prochaines sessions</h3>
+            <div class="course-list">
+                <div class="course-item">
+                    <span>John Doe - Musculation</span>
+                    <span>14:00</span>
+                </div>
+                <div class="course-item">
+                    <span>Marie Claire - Cardio</span>
+                    <span>15:30</span>
+                </div>
+                <div class="course-item">
+                    <span>Paul Martin - CrossFit</span>
+                    <span>17:00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student Section -->
+        <div id="studentSection" class="section hidden">
+            <div class="user-info">
+                <div class="user-name" id="studentName"></div>
+                <div class="user-email" id="studentEmail"></div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card animate-pulse">
+                    <div class="stat-title">Progression globale</div>
+                    <div class="stat-value">68%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Séances complétées</div>
+                    <div class="stat-value">27</div>
+                </div>
+            </div>
+
+            <h3 style="margin: 20px 0 10px 0;">Objectifs en cours</h3>
+            <div class="progress-container">
+                <div class="progress-title">
+                    <span>Perte de poids</span>
+                    <span>75%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%"></div>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-title">
+                    <span>Musculation</span>
+                    <span>45%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 45%"></div>
+                </div>
+            </div>
+
+            <h3 style="margin: 20px 0 10px 0;">Cours suivis</h3>
+            <div class="course-list">
+                <div class="course-item">
+                    <span>Initiation CrossFit</span>
+                    <span class="badge badge-completed">Terminé</span>
+                </div>
+                <div class="course-item">
+                    <span>Nutrition Sportive</span>
+                    <span class="badge badge-progress">En cours</span>
+                </div>
+                <div class="course-item">
+                    <span>Cardio Intensif</span>
+                    <span class="badge badge-progress">En cours</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulating user authentication check
+        class User {
+            constructor(id, name, email, type) {
+                this.id = id;
+                this.name = name;
+                this.email = email;
+                this.type = type; // 'coach' or 'student'
+            }
+        }
+
+        // Simulated login session check
+        function checkUserSession() {
+            // This would normally come from your backend/session
+            const urlParams = new URLSearchParams(window.location.search);
+            const userType = urlParams.get('userType') || 'student'; // Default to student if not specified
+            
+            // Simulate fetching user data
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    if (userType === 'coach') {
+                        resolve(new User(1, "Jean Dupont", "jean.dupont@elite.com", "coach"));
+                    } else {
+                        resolve(new User(2, "Marie Martin", "marie.martin@gmail.com", "student"));
+                    }
+                }, 1500); // Simulate network delay
+            });
+        }
+
+        // Update UI based on user type
+        function updateUI(user) {
+            document.getElementById('loadingSpinner').classList.add('hidden');
+            document.getElementById('welcomeMessage').textContent = `Bienvenue, ${user.name}!`;
+
+            if (user.type === 'coach') {
+                document.getElementById('coachSection').classList.remove('hidden');
+                document.getElementById('studentSection').classList.add('hidden');
+                document.getElementById('coachName').textContent = user.name;
+                document.getElementById('coachEmail').textContent = user.email;
+            } else {
+                document.getElementById('studentSection').classList.remove('hidden');
+                document.getElementById('coachSection').classList.add('hidden');
+                document.getElementById('studentName').textContent = user.name;
+                document.getElementById('studentEmail').textContent = user.email;
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const user = await checkUserSession();
+                updateUI(user);
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                document.getElementById('welcomeMessage').textContent = 
+                    'Erreur lors du chargement des données utilisateur';
+            }
+
+            // Initialize progress bars animation
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
+</body></html>

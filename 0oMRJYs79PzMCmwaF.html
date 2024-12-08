@@ -1,0 +1,318 @@
+<html><head><base href="http://localhost/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite - Salle de Cours Virtuelle</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+        }
+
+        .classroom-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            padding: 20px;
+            height: 100vh;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .video-container {
+            background: #000;
+            border-radius: 10px;
+            height: 60vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .control-btn {
+            background: #6e8efb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .control-btn i {
+            font-size: 18px;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .chat-header {
+            padding: 15px;
+            background: #6e8efb;
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: calc(100vh - 200px);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .message.sent {
+            background: #6e8efb;
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.received {
+            background: #f0f2f5;
+        }
+
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .chat-input button {
+            background: #6e8efb;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .tools-container {
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .tool-btn {
+            background: #f0f2f5;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            background: #6e8efb;
+            color: white;
+        }
+
+        .tool-btn i {
+            font-size: 24px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .live-indicator {
+            background: #ff4444;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        .live-indicator::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="classroom-container">
+        <div class="main-content">
+            <div class="video-container">
+                <div class="live-indicator">LIVE</div>
+                <div class="video-controls">
+                    <button class="control-btn" onclick="toggleVideo()">
+                        <i class="fas fa-video"></i>
+                        Caméra
+                    </button>
+                    <button class="control-btn" onclick="toggleAudio()">
+                        <i class="fas fa-microphone"></i>
+                        Micro
+                    </button>
+                    <button class="control-btn" onclick="shareScreen()">
+                        <i class="fas fa-desktop"></i>
+                        Partager l'écran
+                    </button>
+                    <button class="control-btn" onclick="toggleRecording()">
+                        <i class="fas fa-record-vinyl"></i>
+                        Enregistrer
+                    </button>
+                </div>
+            </div>
+
+            <div class="tools-container">
+                <h3>Outils pédagogiques</h3>
+                <div class="tools-grid">
+                    <button class="tool-btn">
+                        <i class="fas fa-whiteboard"></i>
+                        Tableau blanc
+                    </button>
+                    <button class="tool-btn">
+                        <i class="fas fa-file-pdf"></i>
+                        Documents
+                    </button>
+                    <button class="tool-btn">
+                        <i class="fas fa-poll"></i>
+                        Sondages
+                    </button>
+                    <button class="tool-btn">
+                        <i class="fas fa-hand-paper"></i>
+                        Lever la main
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-container">
+            <div class="chat-header">
+                <h3>Chat en direct</h3>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message received">
+                    <strong>Coach Thomas:</strong> Bonjour à tous! Prêts pour la séance?
+                </div>
+                <div class="message sent">
+                    <strong>Vous:</strong> Oui, tout à fait!
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Écrivez votre message..." id="messageInput">
+                <button onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleVideo() {
+            // Logique pour activer/désactiver la caméra
+            alert('Basculement de la caméra');
+        }
+
+        function toggleAudio() {
+            // Logique pour activer/désactiver le micro
+            alert('Basculement du micro');
+        }
+
+        function shareScreen() {
+            // Logique pour le partage d'écran
+            alert('Partage d\'écran activé');
+        }
+
+        function toggleRecording() {
+            // Logique pour l'enregistrement
+            alert('Enregistrement démarré');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            if (input.value.trim() !== '') {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message sent';
+                messageDiv.innerHTML = `<strong>Vous:</strong> ${input.value}`;
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                input.value = '';
+            }
+        }
+
+        // Écouteur d'événement pour l'envoi de message avec la touche Enter
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
